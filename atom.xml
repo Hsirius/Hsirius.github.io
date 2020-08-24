@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-07-18T09:06:31.471Z</updated>
+  <updated>2020-08-24T12:19:29.387Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>学习react-redux</title>
+    <link href="http://yoursite.com/2020/08/24/%E5%AD%A6%E4%B9%A0react-redux/"/>
+    <id>http://yoursite.com/2020/08/24/%E5%AD%A6%E4%B9%A0react-redux/</id>
+    <published>2020-08-24T12:19:04.000Z</published>
+    <updated>2020-08-24T12:19:29.387Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>react-redux 其实就是提供一个组件<Provider>，整个 app 通过 connect 方法链接组件和 redux store</p><h3 id=""><a href="#" class="headerlink" title=""></a><Provider store></h3><p>store 即为整个 app 的 state 仓库<br>根组件应该嵌套在<Provider>中才能使用 connect 方法</p><h3 id="connect-mapStateToProps-mapDispatchToProps-mergeProps-options-Component"><a href="#connect-mapStateToProps-mapDispatchToProps-mergeProps-options-Component" class="headerlink" title="connect(mapStateToProps, mapDispatchToProps, mergeProps, options)(Component)"></a>connect(mapStateToProps, mapDispatchToProps, mergeProps, options)(Component)</h3><p>此方法调用两次，第一次是设置参数，第二次是将组件与 redux store 链接</p><h4 id="mapStateToProps-state-ownProps-stateProps-Function"><a href="#mapStateToProps-state-ownProps-stateProps-Function" class="headerlink" title="mapStateToProps(state, ownProps): stateProps (Function)"></a>mapStateToProps(state, ownProps): stateProps (Function)</h4><p>state 表示 redux store 中的存值<br>ownProps 表示该组件接收的值<TestComponent value={true} /> 此组件即为 ownProps.value<br>example：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const mapStateToProps &#x3D; state &#x3D;&gt;&#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    someVal: state.someVal</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>1.如果定义该参数，组件将会监听 redux store 的变化，只有 store 发生变化，mapStateToProps 函数就会被调用 2.如果省略这个参数，组件相应的也不会监听 store 的变化 3.该函数必须返回一个纯对象，该对象会与当前组件的 props 合并 4.如果定义 ownProps，只要组件接收新的 props，mapStateToProps 函数就会被调用</p><h4 id="mapDispatchToProps-dispatch-ownProps-dispatchProps-Object-or-Function"><a href="#mapDispatchToProps-dispatch-ownProps-dispatchProps-Object-or-Function" class="headerlink" title="mapDispatchToProps(dispatch, ownProps): dispatchProps (Object or Function)"></a>mapDispatchToProps(dispatch, ownProps): dispatchProps (Object or Function)</h4><p>example:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const mapDispatchToProps &#x3D; &#123;</span><br><span class="line">  someAction</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>or:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const mapDispatchToProps &#x3D; dispatch &#x3D;&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    someFunction: (someArguments) &#x3D;&gt; &#123;</span><br><span class="line">      dispatch(someAction(someArguments))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>1.如果是一个 Object,那么 obj 中的每个值，都会被当作 action 中的方法 2.如果是一个 Function,接收一个 dispatch，返回一个对象 3.如果忽略此参数，默认 dispatch 会注入到当前组件 props 中 4.如果定义 ownProps，同 mapStateToProps</p><h4 id="mergeProps-stateProps-dispatchProps-ownProps-props-Function"><a href="#mergeProps-stateProps-dispatchProps-ownProps-props-Function" class="headerlink" title="mergeProps(stateProps, dispatchProps, ownProps): props (Function)"></a>mergeProps(stateProps, dispatchProps, ownProps): props (Function)</h4><p>example:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const mergeProps &#x3D; (stateProps, dispatchProps, ownProps) &#x3D;&gt; &#123;</span><br><span class="line">  return Object.assign(&#123;&#125;, ownProps, &#123;someProps: someMethodFilterState&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其实就是合并各种 state，dispatch 到 props 中<br>1。如果指定该参数，mapStateToProps，mapDispatchToProps 的执行结果和当前组件自身的 props 将传入到此回调函数中，该回调函数返回的对象将作为 props 传到该组件中</p><h4 id="options-（Object）"><a href="#options-（Object）" class="headerlink" title="options （Object）"></a>options （Object）</h4><p>pure = true default true<br>如果当前组件不依赖于任何的输入而只依赖于 props 和 redux store 中的 state，即纯组件，那么将会执行 shouldComponentUpdate，浅对比 mergeProps 的结果，避免不必要的更新<br>withRef = false default false<br>如果为 true，会保存一个当前组件实例的引用，该引用通过 getWrappedInstance()方法获得</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h2&gt;&lt;p&gt;react-redux 其实就是提供一个组件&lt;Provider&gt;，整个 app 通过 connect 方法链接组件和 redux store
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>开发一个import插件吧</title>
@@ -44,7 +66,7 @@
     <link href="http://yoursite.com/2020/07/17/hello-world/"/>
     <id>http://yoursite.com/2020/07/17/hello-world/</id>
     <published>2020-07-17T01:47:14.671Z</published>
-    <updated>2020-07-17T01:47:14.671Z</updated>
+    <updated>2020-08-24T12:18:06.127Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
     

@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2020/08/24/%E5%AD%A6%E4%B9%A0react-redux/</loc>
+    
+    <lastmod>2020-08-24T12:19:29.387Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2020/07/17/hello-world/</loc>
+    
+    <lastmod>2020-08-24T12:18:06.127Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2020-07-22T03:30:20.703Z</lastmod>
@@ -19,13 +33,6 @@
     <loc>http://yoursite.com/2020/07/18/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAimport%E6%8F%92%E4%BB%B6%E5%90%A7/</loc>
     
     <lastmod>2020-07-18T09:06:31.471Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2020/07/17/hello-world/</loc>
-    
-    <lastmod>2020-07-17T01:47:14.671Z</lastmod>
     
   </url>
   
